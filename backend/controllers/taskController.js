@@ -20,6 +20,13 @@ export const createTask = async (req, res) => {
   try {
     const { title, description } = req.body;
 
+    if (!title) {
+      return res.status(400).json({
+        success: false,
+        message: "Title is required",
+      });
+    }
+
     const task = await Task.create({
       title,
       description,

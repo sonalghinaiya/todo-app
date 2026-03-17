@@ -20,6 +20,9 @@ export const isAuthenticated = (req, res, next) => {
     req.user = { id: decoded.id };
     next();
   } catch (error) {
-    console.log(error);
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token",
+    });
   }
 };
