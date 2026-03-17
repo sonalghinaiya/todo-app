@@ -1,0 +1,17 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Todo App using MERN Stack",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --env-file=.env --watch server.js",
+    "start": "node server.js"
+  },
+  "author": "Sonal Ghinaiya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
