@@ -2,7 +2,12 @@ import jwt from "jsonwebtoken";
 
 export const isAuthenticated = (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    let token;
+    if (req.headers.authorization) {
+      token = req.headers.authorization.split(" ")[1];
+    } else if (req.headers.token) {
+      token = req.headers.token;
+    }
 
     if (!token) {
       return res.status(401).json({
@@ -11,7 +16,6 @@ export const isAuthenticated = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("decoded", decoded);
     // req.user = decoded;
     req.user = { id: decoded.id };
     next();

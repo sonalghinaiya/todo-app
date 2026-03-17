@@ -5,12 +5,13 @@ import {
   getTasks,
   updateTask,
 } from "../controllers/taskController.js";
+import { isAuthenticated } from "../middlewares/authMiddleware.js";
 
 const route = Router();
 
-route.get("/", getTasks);
-route.post("/", createTask);
-route.patch("/:id", updateTask);
-route.delete("/:id", deleteTask);
+route.get("/", isAuthenticated, getTasks);
+route.post("/", isAuthenticated, createTask);
+route.patch("/:id", isAuthenticated, updateTask);
+route.delete("/:id", isAuthenticated, deleteTask);
 
 export default route;
