@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { api } from "../api/axios";
 import toast from "react-hot-toast";
+import Button from "../components/Button";
+import Input from "../components/Input";
 
 function Register() {
   const navigate = useNavigate();
@@ -43,56 +45,46 @@ function Register() {
           Signup to your TaskFlow
         </p>
         <div>
-          <label className="text-sm font-semibold">Name</label>
-          <input
-            className="input"
-            name="name"
-            placeholder="Name"
+          <Input
+            label="Name"
+            type="text"
             value={name}
+            className="input"
             onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
           />
         </div>
 
         <div>
-          <label className="text-sm font-semibold">Email</label>
-          <input
+          <Input
+            label="Email"
             type="email"
-            placeholder="you@example.com"
             value={email}
             className="input"
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
           />
         </div>
 
         <div>
-          <label className="text-sm font-semibold">Password</label>
-          <div className="relative mt-1">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="••••••••"
-              value={password}
-              className="input"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-            >
-              {showPassword ? <IoEyeOff size={18} /> : <IoEye size={18} />}
-            </button>
-          </div>
+          <Input
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            placeholder="••••••••"
+            value={password}
+            className="input"
+            onChange={(e) => setPassword(e.target.value)}
+            rightIcon={
+              <span onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <IoEyeOff size={18} /> : <IoEye size={18} />}
+              </span>
+            }
+          />
         </div>
 
-        <button
-          disabled={loading}
-          className={`w-full px-2 py-1.5 mt-4 rounded-lg text-white ${
-            loading ? "bg-gray-400 cursor-not-allowed" : "bg-gray-900"
-          }`}
-          type="submit"
-        >
-          {loading ? "Signing up..." : "Signup"}
-        </button>
+        <Button type="submit" className="w-full" loading={loading}>
+          Signup
+        </Button>
 
         <p className="text-sm text-center mt-4">
           Already have an account?{" "}
