@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "803bc596-f1e1-4890-a08b-e6409a8f8e7d",
+    "name": "Todo-app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38195899"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Sonu Ghinaiya\",\r\n    \"email\": \"sonu@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"sonu@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "item": [
+        {
+          "name": "Get tasks",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjhmNzRjYWViZThiZTMwZjIxMGUyMyIsImlhdCI6MTc3Mzg5OTkxMSwiZXhwIjoxNzczOTg2MzExfQ.LrE8NJKVxbpUIdRRaCBmp3b7Rp6vGr_nymRKPiIWOXs",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"ghinaiyasonal1308@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjhmNzRjYWViZThiZTMwZjIxMGUyMyIsImlhdCI6MTc3MzczNzIwOSwiZXhwIjoxNzczODIzNjA5fQ.9CyTPBRHyfJ-qTiL5CAJFPifEklmPLL1UG7KA9H9FUc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Write API documentation\",\r\n    \"description\": \"Document all REST endpoints with request/response examples\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update task",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjhmNzRjYWViZThiZTMwZjIxMGUyMyIsImlhdCI6MTc3MzczNzIwOSwiZXhwIjoxNzczODIzNjA5fQ.9CyTPBRHyfJ-qTiL5CAJFPifEklmPLL1UG7KA9H9FUc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"test update\",\r\n    \"description\": \"test description update\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/tasks/69b92edfe000b3d46422ff10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "tasks",
+                "69b92edfe000b3d46422ff10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete task",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjhmNzRjYWViZThiZTMwZjIxMGUyMyIsImlhdCI6MTc3MzczNzIwOSwiZXhwIjoxNzczODIzNjA5fQ.9CyTPBRHyfJ-qTiL5CAJFPifEklmPLL1UG7KA9H9FUc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/tasks/69b92edfe000b3d46422ff10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "tasks",
+                "69b92edfe000b3d46422ff10"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
