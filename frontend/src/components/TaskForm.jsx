@@ -5,12 +5,14 @@ import Input from "./Input";
 import Button from "./Button";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
+import { taskSchema } from "../validations/taskValidation";
 
 function TaskForm({ taskId }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("pending");
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -41,6 +43,17 @@ function TaskForm({ taskId }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const result = taskSchema.safeParse({ title, description, status });
+    if (!result.success) {
+      const error = {};
+      result.error.issues.forEach((err) => {
+        error[err.path[0]] = err.message;
+      });
+      setErrors(error);
+      return;
+    }
+
+    setErrors({});
     if (loading) return;
     setLoading(true);
     try {
@@ -106,6 +119,7 @@ function TaskForm({ taskId }) {
             type="text"
             value={title}
             className="input"
+            error={errors.title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="What needs to be done?"
           />
@@ -121,6 +135,9 @@ function TaskForm({ taskId }) {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
+        {errors.description && (
+          <p className="text-red-500 text-xs mt-1">{errors.description}</p>
+        )}
 
         <div>
           <label className="text-sm font-semibold">Status</label>
@@ -134,6 +151,9 @@ function TaskForm({ taskId }) {
             <option value="completed">Completed</option>
           </select>
         </div>
+        {errors.status && (
+          <p className="text-red-500 text-xs mt-1">{errors.status}</p>
+        )}
         <Button type="submit" className="w-full" loading={loading}>
           {isEdit ? "Update" : "Save"} Task
         </Button>
