@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import axios from "axios";
+import { api } from "../api/axios";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/register", {
+      const res = await api.post("/auth/register", {
         name,
         email,
         password,

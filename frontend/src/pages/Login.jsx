@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import axios from "axios";
+import { api } from "../api/axios.js";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/login", {
+      const res = await api.post("/auth/login", {
         email,
         password,
       });
@@ -22,7 +22,7 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.data));
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
