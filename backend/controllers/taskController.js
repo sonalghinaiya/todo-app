@@ -16,6 +16,31 @@ export const getTasks = async (req, res) => {
   }
 };
 
+export const getTaskById = async (req, res) => {
+  try {
+    const task = await Task.findOne({
+      _id: req.params.id,
+      userId: req.user.id,
+    });
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found",
+      });
+    }
+    res.json({
+      success: true,
+      data: task,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const createTask = async (req, res) => {
   try {
     const { title, description } = req.body;
