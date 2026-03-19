@@ -179,7 +179,7 @@ npm install
 Create a `.env` file in root:
 
 ```env
-PORT=8000
+PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=1d
