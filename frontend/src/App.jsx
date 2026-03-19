@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import AddTask from "./pages/task/AddTask";
+import EditTask from "./pages/task/EditTask";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -26,6 +28,8 @@ function App() {
             </ProtectedRoutes>
           }
         />
+        <Route path="/task/add" element={<AddTask />} />
+        <Route path="/task/edit/:id" element={<EditTask />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

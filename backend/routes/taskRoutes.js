@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createTask,
   deleteTask,
+  getTaskById,
   getTasks,
   updateTask,
 } from "../controllers/taskController.js";
