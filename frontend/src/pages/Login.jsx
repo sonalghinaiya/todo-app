@@ -3,16 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { api } from "../api/axios.js";
+import toast from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
+    setLoading(true);
     try {
       const res = await api.post("/auth/login", {
         email,
@@ -22,9 +27,13 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.data));
 
+      toast.success("Login Successfully");
+
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      toast.error(error.response?.data?.message || "login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,9 +78,12 @@ function Login() {
         </div>
         <button
           type="submit"
-          className="bg-gray-900 text-white rounded-lg w-full px-2 py-1.5 mt-4"
+          disabled={loading}
+          className={`w-full px-2 py-1.5 mt-4 rounded-lg text-white ${
+            loading ? "bg-gray-400 cursor-not-allowed" : "bg-gray-900"
+          }`}
         >
-          Login
+          {loading ? "Signing in..." : "Login"}
         </button>
         <p className="text-sm text-center mt-4">
           Don't have an account?{" "}

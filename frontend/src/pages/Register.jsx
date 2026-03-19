@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { api } from "../api/axios";
+import toast from "react-hot-toast";
 
 function Register() {
   const navigate = useNavigate();
@@ -9,9 +10,13 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
+    setLoading(true);
     try {
       const res = await api.post("/auth/register", {
         name,
@@ -19,9 +24,12 @@ function Register() {
         password,
       });
 
+      toast.success("Registered Successfully");
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      toast.error(error.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -77,10 +85,13 @@ function Register() {
         </div>
 
         <button
-          className="w-full bg-gray-800 text-white px-2 py-1.5 mt-4 rounded"
+          disabled={loading}
+          className={`w-full px-2 py-1.5 mt-4 rounded-lg text-white ${
+            loading ? "bg-gray-400 cursor-not-allowed" : "bg-gray-900"
+          }`}
           type="submit"
         >
-          Signup
+          {loading ? "Signing up..." : "Signup"}
         </button>
 
         <p className="text-sm text-center mt-4">
