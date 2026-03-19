@@ -6,17 +6,30 @@ import { api } from "../api/axios.js";
 import toast from "react-hot-toast";
 import Button from "../components/Button.jsx";
 import Input from "../components/Input.jsx";
+import { loginSchema } from "../validations/authValidation.js";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const result = loginSchema.safeParse({ email, password });
+    if (!result.success) {
+      const error = {};
+      result.error.issues.forEach((err) => {
+        error[err.path[0]] = err.message;
+      });
+      setErrors(error);
+      return;
+    }
+
+    setErrors({});
     if (loading) return;
 
     setLoading(true);
@@ -55,6 +68,7 @@ function Login() {
             type="email"
             value={email}
             className="input"
+            error={errors.email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
           />
@@ -66,6 +80,7 @@ function Login() {
             placeholder="••••••••"
             value={password}
             className="input"
+            error={errors.password}
             onChange={(e) => setPassword(e.target.value)}
             rightIcon={
               <span onClick={() => setShowPassword(!showPassword)}>

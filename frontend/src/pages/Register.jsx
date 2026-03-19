@@ -5,6 +5,7 @@ import { api } from "../api/axios";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { registerSchema } from "../validations/authValidation";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,9 +14,21 @@ function Register() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const result = registerSchema.safeParse({ name, email, password });
+    if (!result.success) {
+      const error = {};
+      result.error.issues.forEach((err) => {
+        error[err.path[0]] = err.message;
+      });
+      setErrors(error);
+      return;
+    }
+
+    setErrors({});
     if (loading) return;
 
     setLoading(true);
@@ -50,6 +63,7 @@ function Register() {
             type="text"
             value={name}
             className="input"
+            error={errors.name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Name"
           />
@@ -61,6 +75,7 @@ function Register() {
             type="email"
             value={email}
             className="input"
+            error={errors.email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
           />
@@ -73,6 +88,7 @@ function Register() {
             placeholder="••••••••"
             value={password}
             className="input"
+            error={errors.password}
             onChange={(e) => setPassword(e.target.value)}
             rightIcon={
               <span onClick={() => setShowPassword(!showPassword)}>

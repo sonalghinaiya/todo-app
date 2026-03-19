@@ -6,6 +6,7 @@ function Input({
   placeholder,
   className,
   rightIcon,
+  error,
 }) {
   return (
     <div className="mb-3">
@@ -24,6 +25,7 @@ function Input({
           </div>
         )}
       </div>
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );
 }
