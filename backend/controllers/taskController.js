@@ -43,7 +43,7 @@ export const getTaskById = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, status } = req.body;
 
     if (!title) {
       return res.status(400).json({
@@ -55,6 +55,7 @@ export const createTask = async (req, res) => {
     const task = await Task.create({
       title,
       description,
+      status,
       userId: req.user.id,
     });
 
